@@ -1,0 +1,9 @@
+amd_ml_db:
+ container_name: amd-ml-db
+ image: sameersbn/postgresql:9.6-2
+ ports:
+  - "54321:5432"
+ environment:
+  - DB_USER=amd_ml_user
+  - DB_PASS=amd_ml_password
+  - DB_NAME=amd_ml

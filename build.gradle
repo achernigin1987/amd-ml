@@ -1,0 +1,84 @@
+group 'amd-ml'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.postgresql:postgresql:9.4.1212"
+        classpath "org.flywaydb:flyway-gradle-plugin:5.0.7"
+    }
+}
+
+apply plugin: 'org.flywaydb.flyway'
+apply plugin: 'java'
+
+sourceCompatibility = JavaVersion.VERSION_1_9
+targetCompatibility = JavaVersion.VERSION_1_9
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
+}
+
+project.ext {
+    jacksonVersion = "2.9.4"
+    slf4jVersion ="1.7.9"
+    logbackVersion = "1.2.3"
+    springVersion = "5.0.3.RELEASE"
+    springBootVersion = "2.0.0.RC1"
+    hibernateVersion = "5.2.13.Final"
+}
+
+configurations {
+    //exclude commons-logging to enable spring logging over slf4j
+    all*.exclude module: 'commons-logging'
+}
+
+
+dependencies {
+    implementation ("org.springframework.boot:spring-boot-starter-web:$springBootVersion") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'
+    }
+    implementation ("org.springframework.boot:spring-boot-starter-jetty:$springBootVersion") {
+        exclude group: 'org.eclipse.jetty.websocket', module: '*'
+    }
+    implementation ("org.springframework.boot:spring-boot-starter-security:$springBootVersion") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-aop'
+    }
+    implementation "org.springframework.boot:spring-boot-starter-aop:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion"
+
+    implementation "org.springframework:spring-context:$springVersion"
+    implementation "org.springframework:spring-core:$springVersion"
+    implementation "org.springframework:spring-aop:$springVersion"
+    implementation "org.springframework:spring-orm:$springVersion"
+
+    implementation "org.hibernate:hibernate-core:$hibernateVersion"
+
+    implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+
+    implementation  "org.postgresql:postgresql:9.4.1212"
+    implementation "com.zaxxer:HikariCP:2.7.7"
+
+    implementation "commons-fileupload:commons-fileupload:1.3.3"
+    compile "org.slf4j:slf4j-api:$slf4jVersion"
+    compile "org.slf4j:jcl-over-slf4j:$slf4jVersion" //to log spring over slf4j http://www.codingpedia.org/ama/how-to-log-in-spring-with-slf4j-and-logback/
+    compile "ch.qos.logback:logback-classic:$logbackVersion"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+flyway {
+    url = 'jdbc:postgresql://127.0.0.1:5432/amd_ml'
+    user = 'amd_ml_user'
+    password = 'amd_ml_password'
+    schemas = ['amd_ml']
+}
