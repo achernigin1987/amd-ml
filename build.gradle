@@ -39,7 +39,6 @@ configurations {
     all*.exclude module: 'commons-logging'
 }
 
-
 dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-web:$springBootVersion") {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
@@ -48,9 +47,7 @@ dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-jetty:$springBootVersion") {
         exclude group: 'org.eclipse.jetty.websocket', module: '*'
     }
-    implementation ("org.springframework.boot:spring-boot-starter-security:$springBootVersion") {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-aop'
-    }
+
     implementation "org.springframework.boot:spring-boot-starter-aop:$springBootVersion"
     implementation "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion"
 
