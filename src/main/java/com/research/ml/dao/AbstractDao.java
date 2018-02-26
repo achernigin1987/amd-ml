@@ -54,7 +54,6 @@ public abstract class AbstractDao<ID extends Serializable, T> {
      * Create an <code>T</code> to the database.
      *
      * @param entity the <code>T</code> to create
-     * @see BaseEntity#isNew
      */
     public void create(T entity) {
         entityManager.persist(entity);
@@ -73,9 +72,11 @@ public abstract class AbstractDao<ID extends Serializable, T> {
         delete(entity);
     }
 
-//    protected Criteria createEntityCriteria(){
-//        return entityManager.createCriteria(persistentClass);
-//    }
+    protected CriteriaQuery<T> createBaseQuery() {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(persistentClass);
+        return query;
+    }
 
 }
 

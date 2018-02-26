@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public class JPAVendorDao extends AbstractDao<Integer, Vendor> implements VendorDao {
+public class JpaVendorDao extends AbstractDao<Integer, Vendor> implements VendorDao {
 
     @Override
-    public Vendor findById(int id) throws DataAccessException {
-        return super.findById(id);
+    public Vendor findById(int vendorId) throws DataAccessException {
+        return super.findById(vendorId);
     }
 
     @Override

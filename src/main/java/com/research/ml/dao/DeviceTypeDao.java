@@ -1,4 +1,4 @@
 package com.research.ml.dao;
 
-public class DeviceTypeDao {
+public interface DeviceTypeDao {
 }

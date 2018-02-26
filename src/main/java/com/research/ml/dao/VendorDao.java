@@ -15,7 +15,7 @@ public interface VendorDao {
      * @return the <code>Vendor</code> if found
      * @throws org.springframework.dao.DataRetrievalFailureException if not found
      */
-    Vendor findById(int id) throws DataAccessException;
+    Vendor findById(int vendorId) throws DataAccessException;
 
     List<Vendor> findAll();
     /**
@@ -29,7 +29,7 @@ public interface VendorDao {
 
     void saveVendor(Vendor vendor);
 
-    void deleteById(int id);
+    void deleteById(int vendorId);
 
 
     //Employee findEmployeeBySsn(String ssn);
