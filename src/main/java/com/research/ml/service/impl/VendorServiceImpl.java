@@ -32,7 +32,8 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public List<VendorDto> findAllVendors() {
-        return vendorDao.findAll().stream().map(VendorDto::new).collect(Collectors.toList());
+        List<Vendor> vendors = vendorDao.findAll();
+        return vendors.stream().map(VendorDto::new).collect(Collectors.toList());
     }
 
     @Override

@@ -5,15 +5,20 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public abstract class AbstractDao<ID extends Serializable, T> {
-    @PersistenceContext
-    EntityManager entityManager;
 
-    private final Class<T> persistentClass;
+public abstract class AbstractDao<ID extends Serializable, T> {
+
+    @PersistenceContext
+    protected EntityManager entityManager;
+
+    protected final Class<T> persistentClass;
 
     @SuppressWarnings("unchecked")
     public AbstractDao(){
@@ -38,7 +43,11 @@ public abstract class AbstractDao<ID extends Serializable, T> {
 
     @SuppressWarnings("unchecked")
     public List<T> findAll() {
-        return entityManager.createQuery("from " + persistentClass.getName()).getResultList();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(persistentClass);
+        Root<T> root = query.from(persistentClass);
+        query.select(root);
+        return entityManager.createQuery(query).getResultList();
     }
 
     /**

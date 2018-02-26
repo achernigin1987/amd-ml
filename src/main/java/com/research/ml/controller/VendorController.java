@@ -21,12 +21,11 @@ public class VendorController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VendorDto> findAllVendors() {
-
         return vendorService.findAllVendors();
     }
 
     @GetMapping(path = "/{vendorId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public VendorDto findVendorById(int vendorId) {
+    public VendorDto findVendorById(@PathVariable int vendorId) {
         return vendorService.findVendorById(vendorId);
     }
 }

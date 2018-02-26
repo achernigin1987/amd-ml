@@ -77,5 +77,5 @@ flyway {
     url = 'jdbc:postgresql://127.0.0.1:54321/amd_ml'
     user = 'amd_ml_user'
     password = 'amd_ml_password'
-    schemas = ['amd_ml']
+    schemas = ['ml']
 }

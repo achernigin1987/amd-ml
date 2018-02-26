@@ -20,6 +20,7 @@ public class JPAVendorDao extends AbstractDao<Integer, Vendor> implements Vendor
 
     @Override
     public List<Vendor> findAll() {
+
         return super.findAll();
     }
 

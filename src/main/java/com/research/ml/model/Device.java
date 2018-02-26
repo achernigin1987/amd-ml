@@ -15,6 +15,8 @@ public class Device {
     @JoinColumn(name = "device_type_id")
     private DeviceType deviceType;
 
+    private String location;
+
     public long getId() {
         return id;
     }
@@ -29,6 +31,14 @@ public class Device {
 
     public void setDeviceType(DeviceType deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override
