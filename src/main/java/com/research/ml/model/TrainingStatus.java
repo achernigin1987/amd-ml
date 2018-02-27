@@ -1,7 +1,7 @@
 package com.research.ml.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.research.ml.util.ConvertTo;
+import com.research.ml.common.ConvertTo;
 
 public enum TrainingStatus {
     DRAFT(1, "DRAFT"),

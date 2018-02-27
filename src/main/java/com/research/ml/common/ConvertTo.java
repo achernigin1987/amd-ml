@@ -1,4 +1,4 @@
-package com.research.ml.util;
+package com.research.ml.common;
 
 import org.springframework.lang.Nullable;
 

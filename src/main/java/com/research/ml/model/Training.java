@@ -1,11 +1,16 @@
 package com.research.ml.model;
 
+import com.research.ml.model.internal.PostgreSQLEnumType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
 @Table(name="training")
+@TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
 public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "training-sequence-generator")
@@ -40,6 +45,8 @@ public class Training {
     private Timestamp finishedAt;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "status")
+    @Type(type = "pgsql_enum" )
     private TrainingStatus status;
 
     @Column(name = "description")
@@ -70,6 +77,14 @@ public class Training {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Set<Device> devices) {
+        this.devices = devices;
     }
 
     public String getModelParams() {

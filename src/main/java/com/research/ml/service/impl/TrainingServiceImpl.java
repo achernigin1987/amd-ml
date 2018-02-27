@@ -9,7 +9,7 @@ import com.research.ml.model.Training;
 import com.research.ml.model.TrainingStatus;
 import com.research.ml.model.User;
 import com.research.ml.service.TrainingService;
-import com.research.ml.util.DateTimeUtil;
+import com.research.ml.common.DateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,6 @@ public class TrainingServiceImpl implements TrainingService {
     private UserDao userDao;
     private TrainingDao trainingDao;
     private ModelInfoDao modelInfoDao;
-
 
     @Autowired
     public TrainingServiceImpl(
@@ -52,7 +51,8 @@ public class TrainingServiceImpl implements TrainingService {
 
         Training training = new Training();
         training.setModelInfo(modelInfo);
-        training.setModelParams(training.getModelParams());
+        training.setModelParams(trainingDto.getModelParams());
+        //training.setDevices();
         training.setUser(user);
         training.setCreatedAt(new java.sql.Timestamp(DateTimeUtil.nowUtcTs()));
         training.setStatus(TrainingStatus.DRAFT);

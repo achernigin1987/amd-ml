@@ -5,8 +5,10 @@ import com.research.ml.dao.TrainingDao;
 import com.research.ml.model.Training;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional
 public class JpaTrainingDao extends AbstractDao<Long, Training> implements TrainingDao {
 
     @Override

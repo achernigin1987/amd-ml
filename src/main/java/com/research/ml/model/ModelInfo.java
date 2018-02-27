@@ -25,9 +25,6 @@ public class ModelInfo {
     @Column(name = "source_code_path")
     private String sourceCodePath;
 
-    @Column(name = "parameters")
-    private String parameters;
-
     @Column(name = "description")
     private String description;
 
@@ -45,14 +42,6 @@ public class ModelInfo {
 
     public void setSourceCodePath(String sourceCodePath) {
         this.sourceCodePath = sourceCodePath;
-    }
-
-    public String getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(String parameters) {
-        this.parameters = parameters;
     }
 
     public String getDescription() {

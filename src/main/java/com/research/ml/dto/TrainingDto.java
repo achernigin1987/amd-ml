@@ -2,8 +2,12 @@ package com.research.ml.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.research.ml.model.Device;
 import com.research.ml.model.Training;
 import com.research.ml.model.TrainingStatus;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({
@@ -15,6 +19,7 @@ public class TrainingDto {
     private Long trainingId;
     private Long modelInfoId;
     private String modelParams;
+    private Set<Long> deviceIds;
     private Long createdAt;
     private Long startedAt;
     private Long finishedAt;
@@ -28,6 +33,7 @@ public class TrainingDto {
         this.trainingId = training.getId();
         this.modelInfoId = training.getModelInfo().getId();
         this.modelParams = training.getModelParams();
+        this.deviceIds = training.getDevices().stream().map(Device::getId).collect(Collectors.toSet());
         this.createdAt = training.getCreatedAt().getTime();
         this.startedAt = training.getStartedAt().getTime();
         this.finishedAt = training.getFinishedAt().getTime();
@@ -58,6 +64,14 @@ public class TrainingDto {
 
     public void setModelParams(String modelParams) {
         this.modelParams = modelParams;
+    }
+
+    public Set<Long> getDeviceIds() {
+        return deviceIds;
+    }
+
+    public void setDeviceIds(Set<Long> deviceIds) {
+        this.deviceIds = deviceIds;
     }
 
     public Long getCreatedAt() {
