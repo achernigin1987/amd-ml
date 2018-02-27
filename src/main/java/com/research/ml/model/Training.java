@@ -6,6 +6,7 @@ import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -25,12 +26,12 @@ public class Training {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "training_device",
             joinColumns = @JoinColumn(name = "training_id"),
             inverseJoinColumns = @JoinColumn(name = "device_id")
     )
-    private Set<Device> devices;
+    private Set<Device> devices = new HashSet<>();
 
     @Column(name = "model_params")
     private String modelParams;
@@ -84,7 +85,24 @@ public class Training {
     }
 
     public void setDevices(Set<Device> devices) {
-        this.devices = devices;
+        // remove old devices
+        for (Device device : this.devices) {
+            removeDevice(device);
+        }
+        // set the new devices
+        for (Device device : devices) {
+            addDevice(device);
+        }
+    }
+
+    public void addDevice(Device device) {
+        devices.add(device);
+        device.getTrainings().add(this);
+    }
+
+    public void removeDevice(Device device) {
+        devices.remove(device);
+        device.getTrainings().remove(this);
     }
 
     public String getModelParams() {

@@ -1,7 +1,9 @@
 package com.research.ml.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="device")
@@ -15,7 +17,12 @@ public class Device {
     @JoinColumn(name = "device_type_id")
     private DeviceType deviceType;
 
+    @ManyToMany(mappedBy = "devices")
+    private Set<Training> trainings = new HashSet<>();
+
     private String location;
+
+    public Device() {}
 
     public long getId() {
         return id;
@@ -31,6 +38,10 @@ public class Device {
 
     public void setDeviceType(DeviceType deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public Set<Training> getTrainings() {
+        return trainings;
     }
 
     public String getLocation() {

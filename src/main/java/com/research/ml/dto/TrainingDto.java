@@ -34,9 +34,9 @@ public class TrainingDto {
         this.modelInfoId = training.getModelInfo().getId();
         this.modelParams = training.getModelParams();
         this.deviceIds = training.getDevices().stream().map(Device::getId).collect(Collectors.toSet());
-        this.createdAt = training.getCreatedAt().getTime();
-        this.startedAt = training.getStartedAt().getTime();
-        this.finishedAt = training.getFinishedAt().getTime();
+        this.createdAt = training.getCreatedAt() != null ? training.getCreatedAt().getTime() : null;
+        this.startedAt = training.getStartedAt() != null ? training.getStartedAt().getTime() : null;
+        this.finishedAt = training.getFinishedAt() != null ? training.getFinishedAt().getTime() : null;
         this.status = training.getStatus();
         this.userId = training.getUser().getId();
         this.description = training.getDescription();

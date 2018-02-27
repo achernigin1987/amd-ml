@@ -31,7 +31,14 @@ public class Vendor extends NamedEntity {
     }
 
     public void setDeviceTypes(Set<DeviceType> deviceTypes) {
-        this.deviceTypes = deviceTypes;
+        // remove old device types
+        for (DeviceType deviceType : this.deviceTypes) {
+            removeDeviceType(deviceType);
+        }
+        // set the new device types
+        for (DeviceType deviceType : deviceTypes) {
+            addDeviceType(deviceType);
+        }
     }
 
     public void addDeviceType(DeviceType deviceType) {
